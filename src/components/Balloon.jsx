@@ -18,6 +18,9 @@ export function Balloon({ ringPositions, onMiss }) {
   const [smoothedCameraPosition] = useState(() => new THREE.Vector3())
   const [smoothedCameraTarget] = useState(() => new THREE.Vector3())
 
+  // Importing the `resetScore` function from the store
+  const resetScore = useStore(state => state.resetScore); 
+
   // useEffect(() => {
   //   ringPositions.forEach(({ topY, bottomY }) => {
   //     console.log("Top Y-coordinate:", topY);
@@ -56,6 +59,7 @@ export function Balloon({ ringPositions, onMiss }) {
             }
           } else {
             if (!encounteredRingsRef.current[index]) {
+              resetScore(); // Reset score on a miss
               onMiss();
               encounteredRingsRef.current[index] = true; // Mark as encountered
             }
