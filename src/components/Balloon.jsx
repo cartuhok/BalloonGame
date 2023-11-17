@@ -34,11 +34,23 @@ export function Balloon({ ringPositions, onMiss }) {
   // Constant velocity along the Z-axis
   const zVelocity = { x: 0, y: 0, z: -2 }; // Adjust the speed as needed
 
+  // Define the upper and lower limits for the balloon's position
+  const upperLimit = 30; // example value, adjust as needed
+  const lowerLimit = -20; // example value, adjust as needed
+  
+
   useFrame((state, delta) => {
     if (rigidBodyRef.current && Array.isArray(ringPositions)) {
       const bodyPosition = vec3(rigidBodyRef.current.translation())
       const balloonY = bodyPosition.y;
       const balloonZ = bodyPosition.z;
+
+      // Check if the balloon's position is outside the limits
+      if (balloonY > upperLimit || balloonY < lowerLimit) {
+        resetScore(); // Reset the score
+        onMiss(); // Trigger any additional game-over logic
+        return; // Exit early to avoid further processing
+      }
 
       // Debugging
       // console.log("Balloon Y:", balloonY, "Balloon Z:", balloonZ);
