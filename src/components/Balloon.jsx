@@ -9,7 +9,7 @@ import { RigidBody, vec3 } from "@react-three/rapier";
 import { useStore } from './useStore'; // Ensure this import is there
 import * as THREE from 'three'
 
-export function Balloon({ ringPositions, onMiss }) {
+export function Balloon({ ringPositions, onMiss, checkForLevelCompletion }) {
   const { nodes, materials } = useGLTF("/hotAirBalloon.glb");
   const rigidBodyRef = useRef();
   const encounteredRingsRef = useRef({}); // Use ref to track encountered rings
@@ -68,6 +68,7 @@ export function Balloon({ ringPositions, onMiss }) {
             if (!encounteredRingsRef.current[index]) {
               useStore.getState().incrementScore();
               encounteredRingsRef.current[index] = true; // Mark as encountered
+              checkForLevelCompletion();
             }
           } else {
             if (!encounteredRingsRef.current[index]) {

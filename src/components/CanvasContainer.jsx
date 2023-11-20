@@ -6,17 +6,22 @@ import { Ring } from "./Ring";
 import { Physics } from '@react-three/rapier';
 import { Perf } from 'r3f-perf';
 import ScoreDisplay from './ScoreDisplay'
+import Confetti from 'react-confetti'
+import { useStore } from './useStore'; // Ensure this import is there
 import { useControls } from "leva"
 
 export default function CanvasContainer() {
   const [gameStarted, setGameStarted] = useState(false);
   const [gameOver, setGameOver] = useState(false);
+  const [levelCompleted, setLevelCompleted] = useState(false); // New state for level completion
   
 
   const startGame = () => {
     if (!gameStarted) {
       setGameStarted(true);
       setGameOver(false);
+      setLevelCompleted(false); // Reset level completion state
+      useStore.getState().resetScore(); // Reset the score
     }
   };
 
@@ -77,6 +82,15 @@ export default function CanvasContainer() {
   const resetGame = () => {
     setGameStarted(false);
     setGameOver(true);
+    setLevelCompleted(false); // Reset level completion state
+  };
+
+  const checkForLevelCompletion = () => {
+    const currentScore = useStore.getState().score;
+    if (currentScore >= 500) {
+      setLevelCompleted(true); // Set level completion to true
+      setGameStarted(false); // Optionally end the game here
+    }
   };
 
   return (
@@ -90,6 +104,15 @@ export default function CanvasContainer() {
         <div className="start-screen absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 text-white text-center text-2xl">
           Press Space to Start
         </div>
+      )}
+
+      {levelCompleted && (
+      <div className='w-screen h-screen absolute overflow-hidden'>
+        <div className="you-won-screen absolute top-[45%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 text-white text-center text-2xl">
+          You Won!
+        </div>
+        <Confetti />
+      </div>
       )}
 
       {gameStarted && <ScoreDisplay />}
@@ -118,6 +141,7 @@ export default function CanvasContainer() {
                 z: ring.z
               }))}
               onMiss={resetGame}
+              checkForLevelCompletion={checkForLevelCompletion}
             />
             {rings.map((ring, index) => (
               <Ring key={index} position={ring.position} size={ring.size} />
