@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { Clouds, Cloud, Environment, OrbitControls, Sky, Html } from '@react-three/drei';
+import { Clouds, Cloud, Environment, OrbitControls, Sky, Html, Stars, Sparkles, useGLTF, useAnimations } from '@react-three/drei';
 import { Balloon } from './Balloon';
 import { Ring } from "./Ring";
 import { Physics } from '@react-three/rapier';
@@ -9,12 +9,12 @@ import ScoreDisplay from './ScoreDisplay'
 import Confetti from 'react-confetti'
 import { useStore } from './useStore'; // Ensure this import is there
 import { useControls } from "leva"
+import Birds from './Birds';
 
 export default function CanvasContainer() {
   const [gameStarted, setGameStarted] = useState(false);
   const [gameOver, setGameOver] = useState(false);
-  const [levelCompleted, setLevelCompleted] = useState(false); // New state for level completion
-  
+  const [levelCompleted, setLevelCompleted] = useState(false); // New state for level completion  
 
   const startGame = () => {
     if (!gameStarted) {
@@ -121,7 +121,11 @@ export default function CanvasContainer() {
         <Perf />
         {/* <OrbitControls /> */}
         <Environment preset="city" />
-        <Sky />
+        <Sky sunPosition={[0, 1, 3]} azimuth={0.5} />
+        <Stars radius={200} depth={50} count={5000} factor={4} saturation={1} fade speed={1} />
+
+        <Birds />
+        
         <ambientLight intensity={Math.PI / 1.5} />
         <Clouds limit={400}>
           <Cloud   bounds={[8, 5, 42]} growth={5} opacity={0.8} speed={0.42} color="white" />
