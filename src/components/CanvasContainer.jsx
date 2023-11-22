@@ -10,6 +10,7 @@ import Confetti from 'react-confetti'
 import { useStore } from './useStore'; // Ensure this import is there
 import { useControls } from "leva"
 import Birds from './Birds';
+import UFO from './Ufo';
 
 export default function CanvasContainer() {
   const [gameStarted, setGameStarted] = useState(false);
@@ -24,6 +25,7 @@ export default function CanvasContainer() {
       useStore.getState().resetScore(); // Reset the score
     }
   };
+  
 
   useEffect(() => {
     const handleKeyPress = (event) => {
@@ -125,6 +127,8 @@ export default function CanvasContainer() {
         <Stars radius={200} depth={50} count={5000} factor={4} saturation={1} fade speed={1} />
 
         <Birds />
+
+        <UFO />
         
         <ambientLight intensity={Math.PI / 1.5} />
         <Clouds limit={400}>

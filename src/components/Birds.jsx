@@ -15,19 +15,20 @@ export default function Birds() {
     useFrame((state, delta) => {
         if (birdRef.current) {
             birdRef.current.position.x += 0.1; // Move the birds along the X-axis by 0.1 units every frame
-            if (birdRef.current.position.x > 30) {
-                birdRef.current.position.x = -30; // Reset position when it goes off screen
+            if (birdRef.current.position.x > 50) {
+                birdRef.current.position.x = -50; // Reset position when it goes off screen
             }
         }
     });
 
-    return (
+    return ( <>
         <primitive
             ref={birdRef}
             object={birds.scene}
             scale={1}
-            position={[-30, 4, -10]}
+            position={[-50, 9, -38]}
             rotation-y={-1.5}
         />
+        </>
     );
 }
