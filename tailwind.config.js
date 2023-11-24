@@ -5,7 +5,12 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'LuckiestGuy-Regular': ['LuckiestGuy-Regular', 'sans'],  
+        'PressStart2P-Regular': ['PressStart2P-Regular', 'sans']
+      }
+    },
   },
   plugins: [],
 }

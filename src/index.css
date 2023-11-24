@@ -1,3 +1,17 @@
+@font-face {
+    font-family: 'LuckiestGuy-Regular'; /* Give a name to the font */
+    src: url('/LuckiestGuy-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'PressStart2P-Regular'; /* Give a name to the font */
+    src: url('/PressStart2P-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
