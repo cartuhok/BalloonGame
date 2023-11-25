@@ -98,19 +98,19 @@ export default function CanvasContainer() {
   return (
     <>
       {gameOver && (
-        <div className="game-over-screen absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 text-white text-center text-2xl">
+        <div className="game-over-screen absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 text-white drop-shadow-lg text-center text-5xl font-LuckiestGuy-Regular">
           Game Over. Press Space to Restart
         </div>
       )}
       {!gameStarted && !gameOver && (
-        <div className="start-screen absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 text-white text-center text-2xl">
+        <div className="start-screen absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 text-white drop-shadow-lg text-center text-5xl font-LuckiestGuy-Regular">
           Press Space to Start
         </div>
       )}
 
       {levelCompleted && (
       <div className='w-screen h-screen absolute overflow-hidden'>
-        <div className="you-won-screen absolute top-[45%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 text-white text-center text-2xl">
+        <div className="you-won-screen absolute top-[35%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 text-white drop-shadow-lg text-center text-5xl font-PressStart2P-Regular">
           You Won!
         </div>
         <Confetti />
