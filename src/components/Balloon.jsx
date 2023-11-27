@@ -6,7 +6,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useFrame } from '@react-three/fiber';
 import { useGLTF, Sparkles } from "@react-three/drei";
 import { RigidBody, vec3 } from "@react-three/rapier";
-import { useStore } from './useStore'; // Ensure this import is there
+import { useStore } from '../stores/useStore'; // Ensure this import is there
 import * as THREE from 'three'
 
 export function Balloon({ ringPositions, onMiss, checkForLevelCompletion }) {

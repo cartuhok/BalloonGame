@@ -1,6 +1,6 @@
 // ScoreDisplay.jsx
 import React from "react";
-import { useStore } from './useStore';
+import { useStore } from '../stores/useStore';
 
 export default function ScoreDisplay() {
   const score = useStore(state => state.score);

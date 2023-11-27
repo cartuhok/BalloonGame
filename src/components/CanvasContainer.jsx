@@ -7,7 +7,7 @@ import { Physics } from '@react-three/rapier';
 import { Perf } from 'r3f-perf';
 import ScoreDisplay from './ScoreDisplay'
 import Confetti from 'react-confetti'
-import { useStore } from './useStore'; // Ensure this import is there
+import { useStore } from '../stores/useStore'; // Ensure this import is there
 import { useControls } from "leva"
 import Birds from './Birds';
 import UFO from './Ufo';
