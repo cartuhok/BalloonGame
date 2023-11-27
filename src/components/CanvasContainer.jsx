@@ -11,6 +11,7 @@ import { useStore } from './useStore'; // Ensure this import is there
 import { useControls } from "leva"
 import Birds from './Birds';
 import UFO from './Ufo';
+import checkeredTextureUrl from '/CheckerFlag.jpg'; // Update with the correct path
 
 export default function CanvasContainer() {
   const [gameStarted, setGameStarted] = useState(false);
@@ -98,19 +99,19 @@ export default function CanvasContainer() {
   return (
     <>
       {gameOver && (
-        <div className="game-over-screen absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 text-white drop-shadow-lg text-center text-5xl font-LuckiestGuy-Regular">
+        <div className="game-over-screen absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 select-none text-white drop-shadow-lg text-center text-5xl font-LuckiestGuy-Regular">
           Game Over. Press Space to Restart
         </div>
       )}
       {!gameStarted && !gameOver && (
-        <div className="start-screen absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 text-white drop-shadow-lg text-center text-5xl font-LuckiestGuy-Regular">
+        <div className="start-screen absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 select-none text-white drop-shadow-lg text-center text-5xl font-LuckiestGuy-Regular">
           Press Space to Start
         </div>
       )}
 
       {levelCompleted && (
       <div className='w-screen h-screen absolute overflow-hidden'>
-        <div className="you-won-screen absolute top-[35%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 text-white drop-shadow-lg text-center text-5xl font-PressStart2P-Regular">
+        <div className="you-won-screen absolute top-[35%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 select-none text-white drop-shadow-lg text-center text-5xl font-PressStart2P-Regular">
           You Won!
         </div>
         <Confetti />
@@ -151,9 +152,16 @@ export default function CanvasContainer() {
               onMiss={resetGame}
               checkForLevelCompletion={checkForLevelCompletion}
             />
-            {rings.map((ring, index) => (
-              <Ring key={index} position={ring.position} size={ring.size} />
-            ))}
+            {
+              rings.map((ring, index) => (
+                <Ring 
+                  key={index} 
+                  position={ring.position} 
+                  size={ring.size}
+                  textureUrl={index === rings.length - 1 ? checkeredTextureUrl : null}
+                />
+              ))
+            }
           </Physics>
         ) : null}
       </Canvas>
