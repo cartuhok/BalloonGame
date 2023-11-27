@@ -17,6 +17,7 @@ export default function CanvasContainer() {
   const [gameStarted, setGameStarted] = useState(false);
   const [gameOver, setGameOver] = useState(false);
   const [levelCompleted, setLevelCompleted] = useState(false); // New state for level completion  
+  const [startMessage, setStartMessage] = useState('Press Space to Start');
 
   const startGame = () => {
     if (!gameStarted) {
@@ -47,6 +48,28 @@ export default function CanvasContainer() {
       window.removeEventListener('touchstart', handleTouchStart);
     };
   }, [gameStarted]);
+
+  useEffect(() => {
+    // Function to detect mobile device
+    const isMobileDevice = () => {
+      return (
+        (navigator.userAgent.match(/Android/i)) ||
+        (navigator.userAgent.match(/webOS/i)) ||
+        (navigator.userAgent.match(/iPhone/i)) ||
+        (navigator.userAgent.match(/iPad/i)) ||
+        (navigator.userAgent.match(/iPod/i)) ||
+        (navigator.userAgent.match(/BlackBerry/i)) ||
+        (navigator.userAgent.match(/Windows Phone/i))
+      );
+    };
+
+    // Set the start message based on the device
+    if (isMobileDevice()) {
+      setStartMessage('Touch to Start');
+    } else {
+      setStartMessage('Press Space to Start');
+    }
+  }, []);
 
 
   const randomInRange = (min, max) => Math.random() * (max - min) + min;
@@ -98,20 +121,23 @@ export default function CanvasContainer() {
 
   return (
     <>
-      {gameOver && (
-        <div className="game-over-screen absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 select-none text-white drop-shadow-lg text-center text-5xl font-LuckiestGuy-Regular">
-          Game Over. Press Space to Restart
+      {gameOver && ( <>
+        <div className="game-over-screen absolute top-[35%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 select-none text-white drop-shadow-lg text-center text-5xl font-LuckiestGuy-Regular">
+          Game Over. 
         </div>
-      )}
+        <div className="game-over-screen absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 select-none text-white drop-shadow-lg text-center text-5xl font-LuckiestGuy-Regular">
+          {startMessage}
+        </div>
+      </> )}
       {!gameStarted && !gameOver && (
         <div className="start-screen absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 select-none text-white drop-shadow-lg text-center text-5xl font-LuckiestGuy-Regular">
-          Press Space to Start
+          {startMessage}
         </div>
       )}
 
       {levelCompleted && (
       <div className='w-screen h-screen absolute overflow-hidden'>
-        <div className="you-won-screen absolute top-[35%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 select-none text-white drop-shadow-lg text-center text-5xl font-PressStart2P-Regular">
+        <div className="you-won-screen absolute top-[25%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 select-none text-white drop-shadow-lg text-center text-5xl font-PressStart2P-Regular">
           You Won!
         </div>
         <Confetti />
@@ -121,7 +147,7 @@ export default function CanvasContainer() {
       {gameStarted && <ScoreDisplay />}
 
       <Canvas>
-        <Perf />
+        {/* <Perf /> */}
         {/* <OrbitControls /> */}
         <Environment preset="city" />
         <Sky sunPosition={[0, 1, 3]} azimuth={0.5} />

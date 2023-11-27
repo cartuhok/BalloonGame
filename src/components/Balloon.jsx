@@ -109,7 +109,7 @@ export function Balloon({ ringPositions, onMiss, checkForLevelCompletion }) {
   });
 
   const mouseImpulseValue = 10;  // Impulse for mouse click
-  const touchImpulseValue = 3;   // Impulse for touch screen tap
+  const touchImpulseValue = 2;   // Impulse for touch screen tap
 
   useEffect(() => {
     const applyMouseImpulse = () => {
