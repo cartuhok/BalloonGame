@@ -18,6 +18,7 @@ export default function CanvasContainer() {
   const [gameOver, setGameOver] = useState(false);
   const [levelCompleted, setLevelCompleted] = useState(false); // New state for level completion  
   const [startMessage, setStartMessage] = useState('Press Space to Start');
+  const [instructionsMessage, setInstructionsMessage] = useState('');
 
   const startGame = () => {
     if (!gameStarted) {
@@ -63,13 +64,15 @@ export default function CanvasContainer() {
       );
     };
 
-    // Set the start message based on the device
+    // Set the instructions message based on the device
     if (isMobileDevice()) {
+      setInstructionsMessage('Tap to keep the hot air balloon afloat and navigate through rings to score points!');
       setStartMessage('Touch to Start');
     } else {
+      setInstructionsMessage('Click to keep the hot air balloon afloat and navigate through rings to score points!');
       setStartMessage('Press Space to Start');
     }
-  }, []);
+}, []);
 
 
   const randomInRange = (min, max) => Math.random() * (max - min) + min;
@@ -121,28 +124,38 @@ export default function CanvasContainer() {
 
   return (
     <>
-      {gameOver && ( <>
+        {gameOver && (
+      <>
         <div className="game-over-screen absolute top-[35%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 select-none text-white drop-shadow-lg text-center text-5xl font-LuckiestGuy-Regular">
-          Game Over. 
+          Game Over.
         </div>
-        <div className="game-over-screen absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 select-none text-white drop-shadow-lg text-center text-5xl font-LuckiestGuy-Regular">
+        <div className="restart-screen absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 select-none text-white drop-shadow-lg text-center text-5xl font-LuckiestGuy-Regular">
           {startMessage}
         </div>
-      </> )}
-      {!gameStarted && !gameOver && (
-        <div className="start-screen absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 select-none text-white drop-shadow-lg text-center text-5xl font-LuckiestGuy-Regular">
+      </>
+    )}
+    {!gameStarted && !gameOver && !levelCompleted && (
+      <>
+        <div className="instructions-screen absolute top-[35%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 select-none text-white drop-shadow-lg text-center text-2xl lg:text-5xl font-LuckiestGuy-Regular">
+          {instructionsMessage}
+        </div>
+        <div className="start-screen absolute top-[65%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 select-none text-white drop-shadow-lg text-center text-5xl font-LuckiestGuy-Regular">
           {startMessage}
         </div>
-      )}
-
-      {levelCompleted && (
+      </>
+    )}
+    {levelCompleted && (
       <div className='w-screen h-screen absolute overflow-hidden'>
-        <div className="you-won-screen absolute top-[25%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 select-none text-white drop-shadow-lg text-center text-5xl font-PressStart2P-Regular">
+        <div className="you-won-screen absolute top-[35%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 select-none text-white drop-shadow-lg text-center text-5xl font-PressStart2P-Regular">
           You Won!
+        </div>
+        <div className="restart-screen absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 select-none text-white drop-shadow-lg text-center text-5xl font-LuckiestGuy-Regular">
+          {startMessage}
         </div>
         <Confetti />
       </div>
-      )}
+    )}
+
 
       {gameStarted && <ScoreDisplay />}
 
