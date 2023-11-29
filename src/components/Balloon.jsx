@@ -10,7 +10,7 @@ import { useStore } from '../stores/useStore'; // Ensure this import is there
 import * as THREE from 'three'
 
 export function Balloon({ ringPositions, onMiss, checkForLevelCompletion }) {
-  const { nodes, materials } = useGLTF("/hotAirBalloon.glb");
+  const { nodes, materials } = useGLTF("./hotAirBalloon.glb");
   const rigidBodyRef = useRef();
   const encounteredRingsRef = useRef({}); // Use ref to track encountered rings
 
@@ -268,4 +268,4 @@ export function Balloon({ ringPositions, onMiss, checkForLevelCompletion }) {
   );
 }
 
-useGLTF.preload("/hotAirBalloon.glb");
+useGLTF.preload("./hotAirBalloon.glb");
