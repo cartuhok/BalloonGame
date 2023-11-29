@@ -1,27 +1,27 @@
-import { useRef, useEffect } from "react";
-import { useFrame } from "@react-three/fiber";
+import { useRef, useEffect } from "react"
+import { useFrame } from "@react-three/fiber"
 import { useAnimations, useGLTF } from "@react-three/drei"
 
 export default function Birds() {
-    const birds = useGLTF('./birds.glb');
-    const animations = useAnimations(birds.animations, birds.scene);
-    const birdRef = useRef();
+    const birds = useGLTF('./birds.glb')
+    const animations = useAnimations(birds.animations, birds.scene)
+    const birdRef = useRef()
 
     useEffect(() => {
-        const action = animations.actions.Scene;
-        action.play();
-    }, [animations.actions]);
+        const action = animations.actions.Scene
+        action.play()
+    }, [animations.actions])
 
     useFrame((state, delta) => {
         if (birdRef.current) {
-            birdRef.current.position.x += 0.1; // Move the birds along the X-axis by 0.1 units every frame
+            birdRef.current.position.x += 0.1
             if (birdRef.current.position.x > 50) {
-                birdRef.current.position.x = -50; // Reset position when it goes off screen
+                birdRef.current.position.x = -50 // Reset position when it goes off screen
             }
         }
-    });
+    })
 
-    return ( <>
+    return (<>
         <primitive
             ref={birdRef}
             object={birds.scene}
@@ -29,6 +29,6 @@ export default function Birds() {
             position={[-50, 9, -38]}
             rotation-y={-1.5}
         />
-        </>
-    );
+    </>
+    )
 }

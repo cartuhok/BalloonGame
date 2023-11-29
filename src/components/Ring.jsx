@@ -1,21 +1,21 @@
-import React, { useEffect } from 'react';
-import { TextureLoader, RepeatWrapping } from 'three';
-import { useLoader } from '@react-three/fiber';
-import { RigidBody } from '@react-three/rapier';
-import { Sparkles } from "@react-three/drei";
+import React, { useEffect } from 'react'
+import { TextureLoader, RepeatWrapping } from 'three'
+import { useLoader } from '@react-three/fiber'
+import { RigidBody } from '@react-three/rapier'
+import { Sparkles } from "@react-three/drei"
 
 export function Ring({ position, size, textureUrl }) {
-  const [radius, tube] = size;
-  const checkeredTexture = textureUrl ? useLoader(TextureLoader, textureUrl) : null;
+  const [radius, tube] = size
+  const checkeredTexture = textureUrl ? useLoader(TextureLoader, textureUrl) : null
 
   useEffect(() => {
     if (checkeredTexture) {
-      checkeredTexture.wrapS = RepeatWrapping;
-      checkeredTexture.repeat.set(10, 1);
+      checkeredTexture.wrapS = RepeatWrapping
+      checkeredTexture.repeat.set(10, 1)
 
-     checkeredTexture.needsUpdate = true;
+     checkeredTexture.needsUpdate = true
     }
-  }, [checkeredTexture]);
+  }, [checkeredTexture])
 
   return ( 
     <RigidBody type="fixed" colliders="trimesh" isSensor={true} position={position}>
@@ -28,5 +28,5 @@ export function Ring({ position, size, textureUrl }) {
         <Sparkles count={15} scale={5} size={5} speed={1} color="gold" />
       </mesh>
     </RigidBody>
-  );
+  )
 }
