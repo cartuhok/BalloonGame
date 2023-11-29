@@ -1,3 +1,3 @@
-# R3F + Drei + Vite
+# R3F Balloon Game
 
-This is a template starter for R3F projects.
+Click/Tap to keep the hot air balloon afloat and navigate through rings to score points! Made with React Three Fiber using Drei Clouds and Rapier physics.
